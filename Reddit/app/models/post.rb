@@ -12,4 +12,6 @@ class Post < ActiveRecord::Base
 
   has_many :subs,
     through: :post_subs
+
+  has_many :comments
 end

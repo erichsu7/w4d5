@@ -6,6 +6,9 @@ Rails.application.routes.draw do
     resources :posts, only: [:create, :destroy]
   end
 
-  resources :posts, only: [:show, :new, :create, :edit, :update]
+  resources :posts, only: [:show, :new, :create, :edit, :update] do
+    resources :comments, only: [:new]
+  end
   resources :post_subs, only: [:create, :destroy]
+  resources :comments, only: [:create]
 end
