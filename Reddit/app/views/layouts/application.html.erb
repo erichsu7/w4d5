@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% if logged_in? %>
+    <%= button_to "log out", session_url, method: :delete %>
+  <% else %>
+    <%= button_to "log in", new_session_url, method: :get %>
+    <%= button_to "sign up", new_user_url, method: :get %>
+  <% end %>
+  <title>Reddit</title>
+  <!-- <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %> -->
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<%= flash[:errors] %>
+<%= yield %>
+
+</body>
+</html>

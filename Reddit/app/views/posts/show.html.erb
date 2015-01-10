@@ -1,0 +1,13 @@
+<h1><%= @post.title %></h1>
+<strong>Subs:</strong>
+<% unless @subs.empty? %>
+  <% @subs.each do |sub| %>
+    <%= link_to "#{sub.title}", sub_url(sub), method: :get %>
+  <% end %>
+<% end %>
+
+<h3>Content:</h3>
+<h5><%= @post.content %></h5>
+
+<%= button_to "Edit post", edit_post_url, method: :get  %>
+<%= button_to "Back to all subs", subs_url, method: :get  %>
