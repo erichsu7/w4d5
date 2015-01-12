@@ -5,8 +5,7 @@ class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
     @subs = @post.subs
-    @comments = @post.comments
-
+    @comments = @post.comments.includes(:child_comments).where(parent_comment_id: nil)
     render :show
   end
 
@@ -18,8 +17,7 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = Post.new(post_params)
-    @post.author_id = current_user.id
+    @post = current_user.posts.new(post_params)
 
     if @post.save
       @post.sub_ids = params[:post][:sub_ids]
@@ -53,6 +51,14 @@ class PostsController < ApplicationController
 
   end
 
+  def upvote
+    vote(1)
+  end
+
+  def downvote
+    vote(-1)
+  end
+
   private
 
   def post_params
@@ -65,5 +71,18 @@ class PostsController < ApplicationController
             @post.subs.any?{ |sub| sub.moderator_id == current_user.id }
       redirect_to post_url(@post)
     end
+  end
+
+  def vote(direction)
+    @post = Post.find(params[:id])
+    @vote = Vote.find_by(voteable_id: @post.id, voteable_type: "Post", user_id: current_user.id)
+
+    if @vote
+      @vote.update(value: direction)
+    else
+      @post.votes.create!(user_id: current_user.id, value: direction)
+    end
+
+    redirect_to :back
   end
 end

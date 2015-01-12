@@ -6,11 +6,16 @@
   <%= include_form_auth_token %>
   <input type="hidden" name="_method" value="<%= action_method %>">
 
+<p>
   <label for="sub_title">Title:</label>
   <input type="text" name="sub[title]" id="sub_title" value="<%= @sub.title %>">
+</p>
 
+<p>
   <label for="sub_description">Description:</label>
+  <br>
   <textarea name="sub[description]" id="sub_description"><%= @sub.description %></textarea>
+</p>
 
   <input type="submit" value="<%= button_text %>">
 

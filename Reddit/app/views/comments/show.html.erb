@@ -1,0 +1,13 @@
+<h1>Comment on <%= @post.title %></h1>
+
+<%= @comment.content %>
+
+<p>
+  <strong>Comment on this:</strong>
+  <br>
+  <%= render "form", comment: @comment %>
+
+</p>
+
+<%= button_to "Delete this comment", comment_url(@comment), method: :delete %>
+<%= button_to "Back to #{@post.title}", post_url(@post), method: :get %>

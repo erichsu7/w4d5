@@ -8,7 +8,16 @@ Rails.application.routes.draw do
 
   resources :posts, only: [:show, :new, :create, :edit, :update] do
     resources :comments, only: [:new]
+    member do
+      post 'upvote'
+      post 'downvote'
+    end
   end
   resources :post_subs, only: [:create, :destroy]
-  resources :comments, only: [:create]
+  resources :comments, only: [:show, :create, :destroy] do
+    member do
+      post 'upvote'
+      post 'downvote'
+    end
+  end
 end

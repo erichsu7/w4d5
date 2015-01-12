@@ -9,21 +9,19 @@
 <h3>Content:</h3>
 <h5><%= @post.content %></h5>
 
-<h3>Comments:</h3>
-<table>
-  <tr>
-    <th>author</th>
-    <th>comment</th>
-    <th>created at</th>
-  </tr>
-  <% @comments.each do |comment| %>
-    <tr>
-      <td><%= comment.author.username %></td>
-      <td><%= comment.content %></td>
-      <td><%= time_ago_in_words(comment.created_at) %> ago</td>
-    </tr>
+<h2>Comments</h2>
+
+<ul>
+  <% comments_by_parent_id = @post.comments_by_parent_id %>
+  <% comments_by_parent_id[nil]
+      .sort_by { |comment| -comment.score }.each do |top_level_comment| %>
+  <li>
+    <%= render("comments/comment",
+    comment: top_level_comment,
+    comments_by_parent_id: comments_by_parent_id) %>
+  </li>
   <% end %>
-</table>
+</ul>
 
 <%= button_to "Leave a comment", new_post_comment_url(@post), method: :get %>
 <%= button_to "Edit post", edit_post_url, method: :get  %>

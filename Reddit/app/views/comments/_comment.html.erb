@@ -1,0 +1,16 @@
+<p>
+  <%= comment.score %> <%= link_to comment.content, comment_url(comment.id) %>
+  <br>
+  <%= comment.author.username %> <%= time_ago_in_words(comment.created_at) %> ago
+  <%= link_to "Upvote", upvote_comment_url(comment), method: :post %>
+  <%= link_to "Downvote", downvote_comment_url(comment), method: :post %>
+</p>
+
+<ul>
+  <% comments_by_parent_id[comment.id]
+      .sort_by { |comment| -comment.score }.each do |child_comment| %>
+  <li><%= render("comments/comment",
+  comment: child_comment,
+  comments_by_parent_id: comments_by_parent_id) %></li>
+  <% end %>
+</ul>

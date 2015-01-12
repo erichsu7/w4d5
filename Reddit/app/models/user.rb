@@ -7,7 +7,9 @@ class User < ActiveRecord::Base
 
   after_initialize :ensure_session_token
 
-  has_many :posts
+  has_many :posts,
+    foreign_key: :author_id,
+    inverse_of: :author
 
   has_many :moderated_subs,
     class_name: 'Sub',

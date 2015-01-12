@@ -3,11 +3,16 @@
 <form action='<%= session_url %>' method="post">
   <%= include_form_auth_token %>
 
+<p>
   <label for="user_username">Username:</label>
   <input type="text" name="user[username]" id="user_username" value="<%= @user.username unless @user.nil? %>">
+</p>
 
+<p>
   <label for="user_password">Password:</label>
   <input type="password" name="user[password]" id="user_password">
+</p>
+
 
   <input type="submit" value="Log In!!">
 

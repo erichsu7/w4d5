@@ -8,7 +8,13 @@
 <% unless @posts.empty? %>
   <ul>
     <% @posts.each do |post| %>
-      <li><%= link_to "#{post.title}", post_url(post), method: :get %></li>
+      <li>
+        <%= post.score %> <%= link_to "#{post.title}", post_url(post), method: :get %>
+        <%= link_to "Upvote", upvote_post_url(post), method: :post %>
+        <%= link_to "Downvote", downvote_post_url(post), method: :post %>
+        <br>
+        <%= post.author.username %> <%= time_ago_in_words(post.created_at) %> ago
+      </li>
     <% end %>
   </ul>
 <% end %>
